@@ -8,6 +8,4 @@ compatibility_date = "2026-01-01"
 
 [vars]
 # Comma-separated list of origins allowed to call this Worker.
-# Add your Cloudflare Pages preview/staging origin here while testing,
-# e.g. "https://corbitrage.com,https://www.corbitrage.com,https://staging.corbitrage-media.pages.dev"
-ALLOWED_ORIGINS = "https://corbitrage.com,https://www.corbitrage.com"
+ALLOWED_ORIGINS = "https://corbitrage.com,https://www.corbitrage.com,https://staging.corbitrage-media.pages.dev"

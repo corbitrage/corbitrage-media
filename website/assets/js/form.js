@@ -51,6 +51,7 @@
         topic: d.get("topic") || "",
         message: (d.get("message") || "").trim(),
         consent: d.get("consent") === "on",
+        marketing_consent: d.get("marketing") === "on",
         website: d.get("website") || "",
       };
       var errs = validate(v);

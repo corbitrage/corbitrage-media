@@ -53,6 +53,8 @@ export function validate(data) {
 
   clean.message = s(data.message).slice(0, 1000);
 
+  clean.marketing_consent = data.marketing_consent === true;
+
   if (data.consent !== true) errors.consent = "Consent is required so we can contact you.";
 
   return { errors, clean, valid: Object.keys(errors).length === 0 };
@@ -94,7 +96,7 @@ export default {
     const payload = {
       ...clean,
       consent: true,
-      consent_text_version: "privacy-v1",
+      consent_text_version: "privacy-v2-2026-11-17",
       source: "corbitrage.com",
       submitted_at: new Date().toISOString(),
     };
