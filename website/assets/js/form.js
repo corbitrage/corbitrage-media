@@ -1,12 +1,8 @@
-/* Lead form: validates in the browser, posts JSON to the Cloudflare Worker.
- *
- * SETUP: after deploying the Worker (see worker/wrangler.toml), replace WORKER_URL
- * with your real Worker URL, e.g. https://corbitrage-lead-handler.<your-subdomain>.workers.dev
- * Until then the form shows a WhatsApp fallback and sends nothing.
+/* Lead form: validates in the browser and posts JSON to the same-origin
+ * Cloudflare Pages Function at /lead. Server-side secrets stay in the Function.
  */
 (function () {
   "use strict";
-  var WORKER_URL = "REPLACE_WITH_WORKER_URL";
   var WA = "https://wa.me/918332904448?text=Hi%20Corbitrage%2C%20I%20would%20like%20to%20talk.";
 
   var NAME_RE = /^[\p{L}\p{M}.' -]{2,80}$/u;
@@ -58,13 +54,9 @@
       ["name", "phone", "email", "topic", "consent"].forEach(function (k) { setErr(k, errs[k]); });
       if (Object.keys(errs).length) return;
 
-      if (WORKER_URL.indexOf("REPLACE_") === 0) {
-        say("bad", 'Online form is not switched on yet. Please <a href="' + WA + '">message us on WhatsApp</a>.');
-        return;
-      }
       btn.disabled = true;
       say("ok", "Sending…");
-      fetch(WORKER_URL, {
+      fetch("/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(v),
