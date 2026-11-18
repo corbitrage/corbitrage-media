@@ -1,5 +1,5 @@
 /* Lead form: validates in the browser and posts JSON to the same-origin
- * Cloudflare Pages Function at /lead. Server-side secrets stay in the Function.
+ * Cloudflare Pages Function at /api/lead. Server-side secrets stay in the Function.
  */
 (function () {
   "use strict";
@@ -56,7 +56,7 @@
 
       btn.disabled = true;
       say("ok", "Sending…");
-      fetch("/lead", {
+      fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(v),
