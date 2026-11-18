@@ -70,7 +70,7 @@ export default {
     }
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors.headers);
     if (!cors.ok) return json({ error: "Origin not allowed" }, 403, cors.headers);
-    if (!env.MAKE_WEBHOOK_URL) return json({ error: "Service not configured" }, 500, cors.headers);
+    if (!env.MAKE_WEBHOOK_URL || !env.MAKE_WEBHOOK_API_KEY) return json({ error: "Service not configured" }, 500, cors.headers);
 
     const text = await request.text();
     if (text.length > MAX_BODY) return json({ error: "Payload too large" }, 413, cors.headers);
@@ -104,7 +104,10 @@ export default {
     try {
       const res = await fetch(env.MAKE_WEBHOOK_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-make-apikey": env.MAKE_WEBHOOK_API_KEY,
+        },
         body: JSON.stringify(payload),
       });
       if (!res.ok) return json({ error: "Could not deliver your request. Please use WhatsApp." }, 502, cors.headers);
