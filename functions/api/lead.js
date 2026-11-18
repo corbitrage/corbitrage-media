@@ -69,7 +69,6 @@ export async function onRequest({ request, env }) {
     }
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors.headers);
     if (!cors.ok) return json({ error: "Origin not allowed" }, 403, cors.headers);
-    if (!env.MAKE_WEBHOOK_URL || !env.MAKE_WEBHOOK_API_KEY) return json({ error: "Service not configured" }, 500, cors.headers);
 
     const text = await request.text();
     if (text.length > MAX_BODY) return json({ error: "Payload too large" }, 413, cors.headers);
@@ -99,6 +98,22 @@ export async function onRequest({ request, env }) {
       source: "corbitrage.com",
       submitted_at: new Date().toISOString(),
     };
+
+    // Fail closed: staging validates the request without contacting Make unless explicitly enabled.
+    if (env.LEAD_WEBHOOK_ENABLED !== "true") {
+      return json({
+        ok: true,
+        success: true,
+        dryRun: true,
+        dispatched: false,
+        message: "Lead validated; webhook dispatch disabled",
+      }, 200, cors.headers);
+    }
+
+    // Require Make credentials only when outbound dispatch is explicitly enabled.
+    if (!env.MAKE_WEBHOOK_URL || !env.MAKE_WEBHOOK_API_KEY) {
+      return json({ error: "Service not configured" }, 500, cors.headers);
+    }
 
     try {
       const res = await fetch(env.MAKE_WEBHOOK_URL, {
