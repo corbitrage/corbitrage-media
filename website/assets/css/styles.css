@@ -1,10 +1,10 @@
 :root{
-  --bg:#fafaf7;--surface:#fff;--ink:#14231f;--muted:#55645f;--line:#e2e6e1;
-  --brand:#0b5d4b;--brand-dark:#084538;--gold:#b8860b;--accent-bg:#eef6f3;--warn-bg:#fff8e6;
+  --bg:#f7fafc;--surface:#fff;--ink:#10243a;--muted:#53677b;--line:#dce6ef;
+  --brand:#075b91;--brand-dark:#043d68;--gold:#b8860b;--accent-bg:#eaf5fc;--warn-bg:#fff8e6;
   --radius:14px;--max:1080px;
 }
 @media (prefers-color-scheme:dark){
-  :root{--bg:#0e1714;--surface:#16231f;--ink:#eaf1ee;--muted:#a3b3ad;--line:#2a3a35;--brand:#3fb59a;--brand-dark:#2e8f79;--gold:#e0b84a;--accent-bg:#14302a;--warn-bg:#2a2410}
+  :root{--bg:#0b1420;--surface:#111f30;--ink:#eaf3fb;--muted:#a5b7c9;--line:#263b50;--brand:#42b9ee;--brand-dark:#1684bb;--gold:#e0b84a;--accent-bg:#142e43;--warn-bg:#2a2410}
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -63,3 +63,14 @@ footer.site a{color:var(--muted)}
 @media (prefers-color-scheme:dark){.todo{background:#4a1b17;color:#ffd7d2}}
 @media (max-width:600px){.hero{padding-top:32px}nav.main{gap:10px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Corbitrage brand identity */
+.brand-lockup{display:flex;align-items:center;flex:0 0 auto;text-decoration:none;min-width:0}
+ .brand-lockup img{display:block;width:min(250px,28vw);height:auto;max-height:118px}
+.footer-brand{margin-bottom:18px}
+ .footer-brand img{display:block;width:min(310px,80vw);height:auto;max-height:145px;margin-bottom:10px}
+@media(max-width:760px){
+  header.site .wrap{align-items:center}
+  .brand-lockup img{width:min(220px,62vw);max-height:105px}
+  header.site .btn{padding:9px 14px;font-size:.9rem}
+}
