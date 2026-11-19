@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 170" role="img" aria-labelledby="title desc">
+<title id="title">Corbitrage</title><desc id="desc">Infinity-inspired financial growth symbol and Corbitrage wordmark.</desc>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8deaff"/><stop offset=".42" stop-color="#168bbd"/><stop offset="1" stop-color="#073b63"/></linearGradient><linearGradient id="t" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#073b63"/><stop offset="1" stop-color="#087eaa"/></linearGradient><clipPath id="left"><path d="M20 83C20 34 83 14 122 48L167 83 122 118C83 152 20 132 20 83Z"/></clipPath></defs>
+<g transform="translate(8 8)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M18 83C18 27 84 9 126 45L188 83 126 121C84 157 18 139 18 83Z" stroke="url(#g)" stroke-width="15"/>
+<path d="M188 83 250 45C292 9 358 27 358 83S292 157 250 121Z" stroke="url(#g)" stroke-width="15"/>
+<g clip-path="url(#left)" stroke="#8deaff" stroke-width="8"><path d="M66 42V124M91 34V132M116 44V122"/></g>
+<path d="M210 83h17" stroke="#168bbd" stroke-width="9"/>
+<path d="M271 82c14-27 48-32 63-11 15 21-5 46-27 38-17-6-14-28 2-31" stroke="#8deaff" stroke-width="9"/>
+</g>
+<text x="402" y="91" fill="url(#t)" font-family="Arial,Helvetica,sans-serif" font-size="59" font-weight="800" letter-spacing="1.5">CORBITRAGE</text>
+<path d="M404 112H746" stroke="#168bbd" stroke-width="2"/>
+<text x="404" y="145" fill="#526c7e" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="600" letter-spacing="4">COMPOUNDING + ARBITRAGE</text>
+</svg>
