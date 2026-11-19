@@ -12,9 +12,10 @@ const PHONE_RE = /^(?:\+?91)?[6-9]\d{9}$/;
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/;
 const TOPICS = ["mutual-funds", "sip-planning", "accounting", "compliance", "partner-onboarding", "other"];
 
-function corsHeaders(origin, env) {
+function corsHeaders(origin, env, selfOrigin) {
   const allowed = (env.ALLOWED_ORIGINS || "").split(",").map((s) => s.trim()).filter(Boolean);
-  const ok = origin && allowed.includes(origin);
+  // Same-origin calls (the website's own form) are always allowed; others need ALLOWED_ORIGINS.
+  const ok = Boolean(origin) && (origin === selfOrigin || allowed.includes(origin));
   return {
     ok,
     headers: {
@@ -62,7 +63,7 @@ export function validate(data) {
 
 export async function onRequest({ request, env }) {
     const origin = request.headers.get("Origin");
-    const cors = corsHeaders(origin, env);
+    const cors = corsHeaders(origin, env, new URL(request.url).origin);
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: cors.ok ? 204 : 403, headers: cors.headers });

@@ -63,7 +63,9 @@
       })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
-          if (res.ok) {
+          if (res.ok && res.j && res.j.dryRun) {
+            say("bad", 'Test mode: your details were checked but NOT sent. Please <a href="' + WA + '">message us on WhatsApp</a>.');
+          } else if (res.ok) {
             f.reset();
             say("ok", "Thank you. We have received your request and will contact you.");
           } else if (res.j && res.j.fields) {
