@@ -63,3 +63,14 @@ footer.site a{color:var(--muted)}
 @media (prefers-color-scheme:dark){.todo{background:#4a1b17;color:#ffd7d2}}
 @media (max-width:600px){.hero{padding-top:32px}nav.main{gap:10px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Corbitrage brand identity */
+.brand-lockup{display:flex;align-items:center;flex:0 0 auto;text-decoration:none;min-width:0}
+.brand-lockup img{display:block;width:min(310px,30vw);height:auto;max-height:68px}
+.footer-brand{margin-bottom:18px}
+.footer-brand img{display:block;width:min(300px,80vw);height:auto;max-height:72px;margin-bottom:10px}
+@media(max-width:760px){
+  header.site .wrap{align-items:center}
+  .brand-lockup img{width:min(245px,68vw);max-height:56px}
+  header.site .btn{padding:9px 14px;font-size:.9rem}
+}
