@@ -76,15 +76,14 @@ footer.site p{max-width:920px}
 .prose table{width:100%;border-collapse:collapse;margin:12px 0}.prose th,.prose td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
 .todo{background:#4a1b17;color:#ffd7d2;padding:0 4px;border-radius:4px}
 @media(max-width:760px){
-  html{scroll-padding-top:145px}
+  html{scroll-padding-top:185px}
   .wrap{padding-left:17px;padding-right:17px}
   header.site .wrap{align-items:center;gap:9px;padding-top:9px;padding-bottom:8px}
-  .brand-lockup{order:1;padding:4px 7px;border-radius:10px}
+  .brand-lockup{order:1;padding:0;border-radius:0}
   .brand-lockup img{width:170px;height:72px;max-height:72px}
   header.site .btn{order:2;margin-left:auto;padding:9px 13px;font-size:.82rem;white-space:nowrap}
-  nav.main{order:3;flex:1 0 100%;display:flex;flex-wrap:nowrap;gap:17px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding:5px 0 7px;scrollbar-width:none;-webkit-overflow-scrolling:touch;font-size:.83rem}
-  nav.main::-webkit-scrollbar{display:none}
-  nav.main a{flex:0 0 auto}
+  nav.main{order:3;flex:1 0 100%;width:100%;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:6px 15px;overflow:visible;white-space:normal;padding:7px 0 4px;font-size:.83rem}
+  nav.main a{flex:0 0 auto;white-space:nowrap;line-height:1.45}
   .hero{padding:44px 0 34px}
   .hero h1{font-size:clamp(1.9rem,8vw,2.55rem);line-height:1.13}
   .hero p.lead{font-size:1rem}
