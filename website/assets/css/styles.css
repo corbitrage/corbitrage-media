@@ -66,11 +66,20 @@ footer.site a{color:var(--muted)}
 
 /* Corbitrage brand identity */
 .brand-lockup{display:flex;align-items:center;flex:0 0 auto;text-decoration:none;min-width:0}
- .brand-lockup img{display:block;width:min(250px,28vw);height:auto;max-height:118px}
+.brand-lockup img{display:block;width:min(205px,24vw);height:auto;max-height:96px;object-fit:contain}
 .footer-brand{margin-bottom:18px}
- .footer-brand img{display:block;width:min(310px,80vw);height:auto;max-height:145px;margin-bottom:10px}
+.footer-brand img{display:block;width:min(270px,80vw);height:auto;max-height:125px;margin-bottom:10px;object-fit:contain}
+
+/* Keep the metallic navy artwork legible on the dark colour scheme. */
+@media (prefers-color-scheme:dark){
+  .brand-lockup,.footer-brand img{background:#fff;border-radius:9px;padding:5px 8px}
+}
+
 @media(max-width:760px){
-  header.site .wrap{align-items:center}
-  .brand-lockup img{width:min(220px,62vw);max-height:105px}
-  header.site .btn{padding:9px 14px;font-size:.9rem}
+  header.site .wrap{align-items:center;gap:8px;padding-top:8px;padding-bottom:8px}
+  .brand-lockup{order:1}
+  .brand-lockup img{width:min(175px,48vw);max-height:82px}
+  header.site .btn{order:2;margin-left:auto;padding:9px 14px;font-size:.9rem;white-space:nowrap}
+  nav.main{order:3;flex:1 0 100%;display:flex;flex-wrap:nowrap;gap:16px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding:5px 0 7px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  nav.main a{flex:0 0 auto}
 }
