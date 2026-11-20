@@ -68,7 +68,7 @@ footer.site a{color:var(--muted)}
 .brand-lockup{display:flex;align-items:center;flex:0 0 auto;text-decoration:none;min-width:0}
 .brand-lockup img{display:block;width:min(205px,24vw);height:auto;max-height:96px;object-fit:contain}
 .footer-brand{margin-bottom:18px}
-.footer-brand img{display:block;width:min(270px,80vw);height:auto;max-height:125px;margin-bottom:10px;object-fit:contain}
+.footer-brand img{display:block;width:min(250px,80vw);height:auto;max-height:125px;margin-bottom:10px;object-fit:contain}
 
 /* Keep the metallic navy artwork legible on the dark colour scheme. */
 @media (prefers-color-scheme:dark){
