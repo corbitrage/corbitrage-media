@@ -33,7 +33,7 @@ nav.main a:hover{color:#70ccff}
 .btn:hover{color:#031322;filter:brightness(1.08);transform:translateY(-1px)}
 .btn.ghost{background:transparent;color:#8bd8ff;border:1px solid rgba(75,184,235,.65);box-shadow:none}
 .btn[disabled]{opacity:.6;cursor:wait}
-.hero{padding:72px 0 54px;position:relative}
+.hero{padding:72px 16px 54px;position:relative}
 .hero:before{content:"";display:block;width:54px;height:3px;border-radius:3px;background:linear-gradient(90deg,#147eb8,#6bd7ff);margin-bottom:22px}
 .hero h1{font-size:clamp(2rem,5vw,3.35rem);line-height:1.1;letter-spacing:-.035em;margin:0 0 18px;max-width:850px}
 .hero p.lead{font-size:1.12rem;color:var(--muted);max-width:700px;margin:0}
@@ -84,7 +84,7 @@ footer.site p{max-width:920px}
   header.site .btn{order:2;margin-left:auto;padding:9px 13px;font-size:.82rem;white-space:nowrap}
   nav.main{order:3;flex:1 0 100%;width:100%;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:6px 15px;overflow:visible;white-space:normal;padding:7px 0 4px;font-size:.83rem}
   nav.main a{flex:0 0 auto;white-space:nowrap;line-height:1.45}
-  .hero{padding:44px 0 34px}
+  .hero{padding:44px 16px 34px}
   .hero h1{font-size:clamp(1.9rem,8vw,2.55rem);line-height:1.13}
   .hero p.lead{font-size:1rem}
   section{padding:36px 0}
