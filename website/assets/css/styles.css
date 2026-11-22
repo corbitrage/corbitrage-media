@@ -55,6 +55,7 @@ input:focus,select:focus,textarea:focus,.btn:focus-visible,a:focus-visible{outli
 .check{display:flex;gap:10px;align-items:flex-start;margin-top:14px}
 .check input{width:18px;height:18px;min-width:18px;flex:0 0 18px;margin:3px 0 0;accent-color:var(--brand)}
 .check label{margin:0;font-weight:400;color:var(--muted)}
+.form-submit{margin-top:24px}
 .hp{position:absolute;left:-9999px;height:0;width:0;overflow:hidden}
 .result{margin-top:16px;padding:15px;border-radius:12px;background:var(--accent-bg);border:1px solid rgba(39,169,232,.18);display:none}
 .result.show{display:block}
