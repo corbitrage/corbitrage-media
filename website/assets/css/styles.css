@@ -76,6 +76,22 @@ footer.site p{max-width:920px}
 .prose{max-width:760px}.prose h2{margin-top:32px}.prose h3{margin-top:20px}
 .prose table{width:100%;border-collapse:collapse;margin:12px 0}.prose th,.prose td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
 .todo{background:#4a1b17;color:#ffd7d2;padding:0 4px;border-radius:4px}
+
+/* Interactive calculator presentation */
+.calc-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.calc-metric{font-size:.84rem;color:var(--muted);padding:10px 12px;background:rgba(255,255,255,.72);border:1px solid rgba(15,107,110,.12);border-radius:10px}
+.calc-summary>strong,.calc-summary>div>strong{display:block}
+.calc-visual{margin-top:16px;padding-top:14px;border-top:1px solid rgba(15,107,110,.16)}
+.calc-visual-title{font-weight:700;color:#24464a;margin:0 0 10px!important}
+.calc-bar{display:flex;overflow:hidden;height:18px;border-radius:999px;background:#e5e1d6;box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+.calc-bar-principal{display:block;background:#0f6b6e;min-width:0;transition:width .25s ease}
+.calc-bar-growth{display:block;background:#d49a32;min-width:0;transition:width .25s ease}
+.calc-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:9px;font-size:.8rem;color:var(--muted)}
+.calc-legend span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;background:#0f6b6e;margin-right:6px}
+.calc-legend span+span:before{background:#d49a32}
+.calc-disclaimer{margin:13px 0 0!important}
+[hidden]{display:none!important}
+
 @media(max-width:760px){
   html{scroll-padding-top:185px}
   .wrap{padding-left:17px;padding-right:17px}
@@ -93,9 +109,11 @@ footer.site p{max-width:920px}
   .card{padding:18px}
   footer.site{padding:34px 0 26px}
   .footer-brand img{width:190px;height:105px;max-height:105px}
+  .calc-summary{grid-template-columns:1fr 1fr}
 }
 @media(max-width:380px){
   .brand-lockup img{width:150px;height:64px;max-height:64px}
   header.site .btn{padding:8px 10px;font-size:.78rem}
+  .calc-summary{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.calc-bar-principal,.calc-bar-growth{transition:none}}
