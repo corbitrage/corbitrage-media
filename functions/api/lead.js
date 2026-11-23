@@ -10,7 +10,7 @@ const MAX_BODY = 5000;
 const NAME_RE = /^[\p{L}\p{M}.' -]{2,80}$/u;
 const PHONE_RE = /^(?:\+?91)?[6-9]\d{9}$/;
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/;
-const TOPICS = ["sip-planning", "mutual-funds", "other"];
+const TOPICS = ["sip-planning", "mutual-funds", "distributor-enquiry", "other"];
 
 function corsHeaders(origin, env, selfOrigin) {
   const allowed = (env.ALLOWED_ORIGINS || "").split(",").map((s) => s.trim()).filter(Boolean);
