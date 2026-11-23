@@ -67,9 +67,9 @@ input:focus,select:focus,textarea:focus,.btn:focus-visible,a:focus-visible{outli
 .tabs button{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 17px;cursor:pointer;color:var(--ink);font:inherit}
 .tabs button[aria-selected="true"]{background:linear-gradient(135deg,#8bd0d3,#4aa6b5);color:#17343b;border-color:transparent;font-weight:700}
 video{border-radius:var(--radius);background:#000;width:100%;max-width:360px}
-footer.site{background:#f0eee7;border-top:1px solid var(--line);padding:42px 0 30px;margin-top:48px;font-size:.88rem;color:var(--muted)}
+footer.site{background:#f0eee7;border-top:1px solid var(--line);padding:42px 0 30px;margin-top:48px;font-size:.88rem;color:#4d5a60}
 footer.site .wrap{max-width:var(--max)}
-footer.site a{color:#087b9c}
+footer.site a{color:#00627a}
 .footer-brand{margin:0 0 22px;line-height:1.7}
 .footer-brand img{display:block;width:230px;height:130px;max-height:130px;margin:0 0 17px;object-fit:contain;object-position:left center;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none}
 footer.site p{max-width:920px}
