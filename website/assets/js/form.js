@@ -27,6 +27,7 @@
     if (!f) return;
     var status = document.getElementById("lead-status");
     var btn = f.querySelector("button[type=submit]");
+    var submitLabel = btn ? btn.textContent : "Send";
 
     function setErr(name, msg) {
       var el = f.querySelector('[data-err="' + name + '"]');
@@ -55,7 +56,9 @@
       if (Object.keys(errs).length) return;
 
       btn.disabled = true;
-      say("ok", "Sending…");
+      btn.textContent = "Sending…";
+      f.setAttribute("aria-busy", "true");
+      say("ok", "Sending your enquiry…");
       fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -76,7 +79,11 @@
           }
         })
         .catch(function () { say("bad", 'Network problem. Please <a href="' + WA + '">message us on WhatsApp</a>.'); })
-        .then(function () { btn.disabled = false; });
+        .then(function () {
+          btn.disabled = false;
+          btn.textContent = submitLabel;
+          f.removeAttribute("aria-busy");
+        });
     });
   });
 })();
