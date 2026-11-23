@@ -117,3 +117,54 @@ footer.site p{max-width:920px}
   .calc-summary{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.calc-bar-principal,.calc-bar-growth{transition:none}}
+
+
+/* Investor-first homepage refinement */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);align-items:center;gap:clamp(26px,5vw,64px);padding-top:66px;padding-bottom:58px}
+.hero-copy{min-width:0}
+.hero-copy h1{max-width:720px}
+.hero-disclosure{margin-top:18px;max-width:680px}
+.hero-visual{position:relative;overflow:hidden;padding:24px;border:1px solid rgba(15,107,110,.18);border-radius:24px;background:linear-gradient(150deg,rgba(255,253,248,.98),rgba(230,241,238,.88));box-shadow:0 22px 52px rgba(31,66,67,.10)}
+.hero-visual:after{content:"";position:absolute;width:190px;height:190px;border:1px solid rgba(200,135,26,.18);border-radius:50%;right:-88px;top:-94px;pointer-events:none}
+.hero-visual-kicker{font-size:.76rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:#64777a;margin-bottom:18px}
+.journey-step{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.journey-number{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:13px;background:#0f6b6e;color:#fff;font-size:.78rem;font-weight:800;letter-spacing:.04em}
+.journey-step strong,.journey-step small{display:block}
+.journey-step strong{color:#17494b;font-size:.98rem}
+.journey-step small{color:#607276;font-size:.82rem;margin-top:2px}
+.journey-connector{height:20px;width:2px;background:linear-gradient(#0f6b6e,#d49a32);margin:3px 0 3px 20px}
+.hero-visual-note{position:relative;z-index:1;border-top:1px solid rgba(15,107,110,.14);margin-top:20px;padding-top:13px;color:#637477;font-size:.78rem}
+.video-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden;border:1px solid var(--line);border-radius:22px;background:linear-gradient(140deg,#fffdf8,#f0eee5);box-shadow:0 14px 36px rgba(39,52,58,.07)}
+.video-art{min-height:260px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background:radial-gradient(circle at 78% 20%,rgba(212,154,50,.36),transparent 34%),linear-gradient(145deg,#0b5154,#0f6b6e 58%,#174548);color:#fff}
+.video-art:before,.video-art:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.18);border-radius:50%;width:240px;height:240px;right:-75px;bottom:-125px}
+.video-art:after{width:170px;height:170px;right:-40px;bottom:-90px;border-color:rgba(255,255,255,.25)}
+.video-play{position:relative;z-index:1;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#fff;color:#0f6b6e;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:1.05rem}
+.video-art-label{position:relative;z-index:1;font-size:.68rem;font-weight:750;letter-spacing:.13em;opacity:.78}
+.video-art-title{position:relative;z-index:1;font-size:clamp(1.5rem,3vw,2.15rem);font-weight:800;line-height:1.12;letter-spacing:-.035em;max-width:380px}
+.video-feature-copy{padding:clamp(22px,4vw,36px);align-self:center}
+.video-feature-copy h3{font-size:1.35rem;line-height:1.2;color:#17494b;margin:10px 0}
+.video-feature-copy p{color:var(--muted)}
+.video-feature-copy .small{font-size:.78rem;margin:16px 0 0}
+nav.main a{padding:5px 2px;border-radius:6px}
+nav.main a:focus-visible{outline:3px solid rgba(15,107,110,.38);outline-offset:3px}
+@media(max-width:760px){
+ .hero-grid{grid-template-columns:1fr;gap:24px;padding-top:38px;padding-bottom:34px}
+ .hero-visual{padding:20px;border-radius:19px}
+ .video-feature{grid-template-columns:1fr}
+ .video-art{min-height:210px}
+ nav.main{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;justify-content:flex-start;white-space:nowrap;scrollbar-width:thin;scroll-snap-type:x proximity;padding:8px 1px 10px}
+ nav.main a{scroll-snap-align:start;flex:0 0 auto}
+}
+@media(max-width:380px){
+ .hero-visual{padding:17px}
+ .journey-step{gap:11px}
+ .journey-step strong{font-size:.92rem}
+ .video-art{min-height:190px;padding:21px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .hero-visual,.video-feature{animation:corb-enter .55s ease-out both}
+ @keyframes corb-enter{from{opacity:.82;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-visual,.video-feature{animation:none}
+}
