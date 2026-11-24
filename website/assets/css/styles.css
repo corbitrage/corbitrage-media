@@ -227,3 +227,14 @@ nav.main a:focus-visible{outline:3px solid rgba(15,107,110,.38);outline-offset:3
 /* engage4: slightly larger mobile nav, spacing for separate visitor paths */
 #partners h3[id^="path-"]{margin-top:34px}
 @media (max-width:760px){nav.main{font-size:.95rem}nav.main a{padding:7px 3px}}
+
+
+/* AMFI NAV Explorer */
+.nav-search-form{max-width:760px}
+.nav-search-form .status{display:block}
+.nav-result-list{display:grid;gap:10px;margin-top:14px}
+.nav-result-card{padding:14px 16px;background:rgba(255,255,255,.76);border:1px solid var(--line);border-radius:12px}
+.nav-result-card h3{margin:0 0 4px;color:var(--ink);font-size:1rem}
+.nav-result-card p{margin:3px 0}
+.nav-value{display:block;color:var(--brand-dark);font-size:1.35rem;font-variant-numeric:tabular-nums}
+@media(max-width:600px){.nav-search-form{padding:16px}.nav-result-card{padding:12px}}
