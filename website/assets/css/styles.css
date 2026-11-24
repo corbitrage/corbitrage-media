@@ -223,3 +223,7 @@ nav.main a:focus-visible{outline:3px solid rgba(15,107,110,.38);outline-offset:3
   .card{transition:none}.card:hover{transform:none}
   .js-reveal .reveal{opacity:1;transform:none;transition:none}
 }
+
+/* engage4: slightly larger mobile nav, spacing for separate visitor paths */
+#partners h3[id^="path-"]{margin-top:34px}
+@media (max-width:760px){nav.main{font-size:.95rem}nav.main a{padding:7px 3px}}
