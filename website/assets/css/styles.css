@@ -238,3 +238,41 @@ nav.main a:focus-visible{outline:3px solid rgba(15,107,110,.38);outline-offset:3
 .nav-result-card p{margin:3px 0}
 .nav-value{display:block;color:var(--brand-dark);font-size:1.35rem;font-variant-numeric:tabular-nums}
 @media(max-width:600px){.nav-search-form{padding:16px}.nav-result-card{padding:12px}}
+
+
+/* Mobile navigation clarity: show every destination without horizontal scrolling. */
+@media(max-width:760px){
+  header.site .wrap{column-gap:12px;row-gap:8px}
+  header.site .brand-lockup img{width:150px;height:66px;max-height:66px}
+  header.site>.wrap>.btn{min-height:42px;padding:9px 14px;font-size:.86rem}
+  nav.main{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    width:100%;
+    gap:5px 7px;
+    overflow:visible;
+    white-space:normal;
+    justify-content:stretch;
+    scroll-snap-type:none;
+    -webkit-mask-image:none;
+    mask-image:none;
+    padding:5px 0 7px;
+    font-size:.84rem;
+  }
+  nav.main a{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    padding:7px 4px;
+    white-space:normal;
+    text-align:center;
+    line-height:1.2;
+    border:1px solid rgba(15,107,110,.12);
+    border-radius:8px;
+    background:rgba(255,255,255,.48);
+  }
+}
+@media(max-width:380px){
+  nav.main{grid-template-columns:repeat(2,minmax(0,1fr));font-size:.82rem}
+}
