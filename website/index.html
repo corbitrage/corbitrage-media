@@ -22,7 +22,7 @@
 <header class="site"><div class="wrap">
 <a class="brand-lockup" href="/" aria-label="Corbitrage home"><img src="/assets/img/corbitrage-logo.png" alt="Corbitrage — Compounding + Arbitrage" decoding="async"></a>
 <nav class="main" aria-label="Main">
-<a href="/#services">Services</a><a href="/#calculators">Calculators</a><a href="/#videos">Videos</a><a href="/#partners">Investors &amp; distributors</a><a href="/#contact">Contact</a><a href="/disclosures.html">Disclosures</a>
+<a href="/#services">Services</a><a href="/#calculators">Calculators</a><a href="/#nav-explorer">NAV</a><a href="/#videos">Videos</a><a href="/#partners">Investors &amp; distributors</a><a href="/#contact">Contact</a><a href="/disclosures.html">Disclosures</a>
 </nav>
 <a class="btn" href="https://wa.me/918332904448">WhatsApp us</a>
 </div></header>
@@ -60,6 +60,19 @@
 <div class="card"><h3>Mutual fund distribution</h3><p>Help with goals, SIP set-up, reminders and paperwork. As a distributor we earn trail commission from the fund house; see <a href="/disclosures.html">Disclosures</a>.</p></div>
 <div class="card"><h3>SIP &amp; goal planning</h3><p>Help organising regular SIP investments around your goals. Illustrations only; returns are not guaranteed. Mutual fund investments are subject to market risks; read all scheme related documents carefully.</p></div>
 </div></div></section>
+
+<section id="nav-explorer"><div class="wrap">
+<h2>Mutual fund NAV Explorer</h2>
+<p class="sub">Search the latest published Net Asset Value (NAV) using AMFI's public NAV data. Check the NAV date shown for each scheme; this is not an intraday price or a return indicator.</p>
+<form id="nav-search-form" class="card nav-search-form" role="search">
+<label for="nav-search">Search by scheme name or AMFI scheme code</label>
+<input id="nav-search" name="q" type="search" minlength="3" maxlength="100" placeholder="e.g. HDFC Flexi Cap Fund or scheme code" autocomplete="off" required>
+<p><button class="btn" type="submit">Search latest NAV</button></p>
+<div id="nav-status" class="status" role="status" aria-live="polite"></div>
+<div id="nav-results" aria-live="polite"></div>
+</form>
+<p class="small">Source: <a href="https://www.amfiindia.com/net-asset-value/nav-download" target="_blank" rel="noopener noreferrer">Association of Mutual Funds in India (AMFI)</a>. NAV data is published by AMCs and may be delayed or unavailable for some schemes. Historical NAV lookup is available through AMFI's official <a href="https://www.amfiindia.com/net-asset-value/nav-download" target="_blank" rel="noopener noreferrer">NAV History facility</a> (up to 90 days per request, as stated by AMFI). This search currently covers latest NAV only.</p>
+</div></section>
 
 <section id="calculators"><div class="wrap">
 <h2>Calculators</h2><p class="sub">Simple illustrations. You choose the return assumption; these are not forecasts and returns are not guaranteed.</p>
@@ -159,7 +172,7 @@
 </form>
 <p class="small">Registered Office: 2-126, Pandrapadu, Colony Anganwadi Road, Pandrapadu, Kakumanu Mandal, Guntur, Andhra Pradesh &ndash; 522124. Corporate Office: Vijayawada, Andhra Pradesh.</p>
 </div></section>
-<script src="/assets/js/calculators.js?v=20261124-livecalc" defer></script>
+<script src="/assets/js/calculators.js?v=20261124-livecalc" defer></script>\n<script src="/assets/js/nav-explorer.js?v=20261124-nav1" defer></script>
 <script src="/assets/js/form.js" defer></script>
 <script src="/assets/js/motion.js?v=20261124-motion" defer></script>
 </main>
