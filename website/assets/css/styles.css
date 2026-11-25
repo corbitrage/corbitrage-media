@@ -284,3 +284,6 @@ nav.main a:focus-visible{outline:3px solid rgba(15,107,110,.38);outline-offset:3
 @media (prefers-reduced-motion:no-preference){.status.busy:before{animation:corb-spin .8s linear infinite}}
 @keyframes corb-spin{to{transform:rotate(360deg)}}
 input[aria-invalid="true"],select[aria-invalid="true"]{border-color:#b42318;box-shadow:0 0 0 1px #b42318}
+
+/* Phones and tablets: let the header scroll away so the 3-row menu does not cover a third of the screen. Desktop stays sticky. */
+@media(max-width:1040px){header.site{position:static}}
