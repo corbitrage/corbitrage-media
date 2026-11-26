@@ -336,3 +336,9 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:#b42318;box-
 #how-we-verify .card p{font-size:.91rem;line-height:1.65}
 #how-we-verify>.wrap>.small{max-width:820px;margin-top:18px}
 @media(max-width:600px){#how-we-verify .grid{grid-template-columns:1fr}#how-we-verify .card{padding:18px}}
+
+
+/* Touch-friendly navigation targets on phones and tablets. */
+@media(max-width:1040px){
+  nav.main a{display:inline-flex;align-items:center;min-height:44px;padding:7px 5px}
+}
