@@ -287,3 +287,45 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:#b42318;box-
 
 /* Phones and tablets: let the header scroll away so the 3-row menu does not cover a third of the screen. Desktop stays sticky. */
 @media(max-width:1040px){header.site{position:static}}
+
+
+/* Investor journey polish: consistent reading rhythm and clearer section groups */
+#investor-education .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+#investor-education .card{height:100%;padding:22px 21px;border-top-width:3px}
+#investor-education .card h3{font-size:1.04rem;line-height:1.35;min-height:2.7em}
+#investor-education .card p{font-size:.92rem;line-height:1.62}
+#investor-education .card p.small[lang="te"]{margin:14px -2px 0;padding:13px 12px;border-radius:10px;background:rgba(230,241,238,.72);color:#36565a;font-size:.94rem;line-height:1.9;overflow-wrap:anywhere}
+#investor-education .notice{margin-top:20px}
+#nav-explorer .nav-search-form{padding:clamp(18px,3vw,26px);max-width:820px}
+#nav-explorer .nav-search-form label{margin-top:0}
+#nav-explorer .nav-search-form button{margin-top:8px}
+#nav-explorer .nav-result-list{max-width:820px}
+#calculators .tabs{gap:8px;margin:0 0 16px}
+#calculators .tabs button{min-width:92px;min-height:42px;font-weight:650}
+#calculators [data-calc-panel]{max-width:820px;padding:clamp(18px,3vw,26px)}
+#calculators [data-calc-panel] h3{font-size:1.18rem;margin:0 0 12px}
+#calculators [data-calc-panel] label{margin-top:15px}
+#calculators [data-calc-panel] .result{line-height:1.65}
+#calculators>.wrap>.notice{max-width:820px;margin-top:18px}
+#partners .grid{gap:15px}
+#partners .grid .card{padding:21px}
+#partners .grid .card h3{min-height:1.4em}
+#partners h3[id^="path-"]{scroll-margin-top:24px}
+#before-you-contact .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#before-you-contact .card{height:100%;border-top-color:var(--brand);padding:21px}
+#before-you-contact .card h3{font-size:1rem;line-height:1.4}
+#before-you-contact .card p{font-size:.91rem}
+@media(max-width:900px){
+ #investor-education .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #before-you-contact .grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ #investor-education .grid{grid-template-columns:1fr;gap:12px}
+ #investor-education .card{padding:18px}
+ #investor-education .card h3{min-height:0}
+ #investor-education .card p.small[lang="te"]{font-size:.92rem;line-height:1.85}
+ #calculators .tabs button{flex:1;min-width:0;padding:9px 12px}
+ #calculators [data-calc-panel]{padding:17px}
+ #partners .grid .card{padding:18px}
+ #before-you-contact .card{padding:18px}
+}
