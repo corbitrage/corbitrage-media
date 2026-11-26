@@ -166,7 +166,8 @@
         out.appendChild(gain);
         addBarChart(out, result.invested, result.gain);
       }
-      out.appendChild(node("p", "small calc-disclaimer", DISCLAIMER));
+      var timingNote = (type === "sip" || type === "goal") ? " SIP instalments are assumed to be invested at the beginning of each month." : "";
+      out.appendChild(node("p", "small calc-disclaimer", DISCLAIMER + timingNote));
     }
 
     function bind(formId, calculate, type) {
