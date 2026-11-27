@@ -59,7 +59,7 @@ ul.hist li{border-left:3px solid var(--brand);padding:2px 8px;background:var(--s
 
 <div class="banner" role="note">
   <strong>Not a secure admin system.</strong>
-  This is a local, single-browser prototype. It has no login, no server and no audit trail that can be trusted. It does not publish anything to the website, send data anywhere or activate any link. Do not enter PAN, bank, Aadhaar or customer data. Referral links are stored as host name only.
+  This is a local, single-browser prototype. It has no login, no server and no audit trail that can be trusted. It does not publish anything to the website, send data anywhere or activate any link. Do not enter PAN, bank, Aadhaar or customer data. Referral links are stored as host name only, and an HTTPS format check is not verification of the partner.
 </div>
 
 <section aria-labelledby="ov"><h2 id="ov">Overview</h2>
@@ -89,9 +89,10 @@ ul.hist li{border-left:3px solid var(--brand);padding:2px 8px;background:var(--s
 (function(){
 "use strict";
 var KEY="corbitrage.partnerRegister.v1";
+var URLOK="HTTPS format checked — domain verification pending";
 var STATUSES=["Draft","Pending verification","Compliance review","Changes required","Approved","Disabled","Suspended"];
 var CLASSES={corporate:"Corbitrage corporate business",personal:"Personally owned referral account",third:"Third-party partner platform"};
-var STEPS=["Partner registration recorded","Account ownership verified","PAN and bank ownership classified (no numbers stored)","Product categories identified","Partner permission to refer verified in writing","Regulatory and compliance review done","Referral URL validated","Commission recipient identified","Disclosure wording reviewed","Manual approval by company owner","Activation explicitly authorised","Periodic monitoring scheduled"];
+var STEPS=["Partner registration recorded","Account ownership verified","PAN and bank ownership classified (no numbers stored)","Product categories identified","Partner permission to refer verified in writing","Regulatory and compliance review done","Referral URL domain and destination independently checked","Commission recipient identified","Disclosure wording reviewed","Manual approval by company owner","Activation explicitly authorised","Periodic monitoring scheduled"];
 var DOCS=["Partner agreement / terms","Proof of account ownership","Product list and permissions","Commission statement sample"];
 
 function now(){return new Date().toISOString().replace("T"," ").slice(0,16)+" UTC"}
@@ -100,18 +101,18 @@ function blank(id,name,cls,note){
   var docs={};DOCS.forEach(function(d){docs[d]="Not received"});
   return{id:id,name:name,cls:cls,status:"Draft",ownership:"Unverified",panBank:"Unverified",
     commission:"Unverified",products:[],permission:"Pending",urlHost:"",urlStatus:"None on file",
-    referralEnabled:false,arnLinked:false,note:note,checklist:chk,docs:docs,
+    referralEnabled:false,arnLinked:false,locked:false,urlDomainChecked:false,acctApproval:false,note:note,checklist:chk,docs:docs,
     history:[{t:now(),m:"Record created as Draft. Referral link disabled by default."}]};
 }
 function defaults(){
   var g=blank("gromo","GroMo","personal","Personally owned account. Personal PAN and bank account. Corbitrage contact details used. Company ARN must not be associated with this account.");
-  g.ownership="Personal (account holder: owner)";g.panBank="Personal";g.commission="Personal (not Corbitrage)";
+  g.locked=true;g.ownership="Personal (account holder: owner)";g.panBank="Personal";g.commission="Personal (not Corbitrage)";
   g.history.push({t:now(),m:"Classified as personally owned referral account. Not corporate income."});
   var c=blank("choice","Choice Connect","third","Separate partner record. Ownership and KYC details pending verification. Product categories and referral permissions pending review. Website URL to be supplied.");
   return[g,c];
 }
 var state;
-function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);if(Array.isArray(p)&&p.length)return p}}catch(e){}return defaults()}
+function load(){try{var r=localStorage.getItem(KEY);if(r){var p=JSON.parse(r);if(Array.isArray(p)&&p.length){p.forEach(function(x){if(x.locked===undefined)x.locked=(x.id==="gromo");if(x.urlDomainChecked===undefined)x.urlDomainChecked=false;if(x.acctApproval===undefined)x.acctApproval=false;if(x.urlStatus==="Validated (host only)")x.urlStatus=URLOK});return p}}}catch(e){}return defaults()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
 state=load();save();
 var sel=state[0]?state[0].id:null;
@@ -124,20 +125,38 @@ function sCls(s){return s==="Approved"?"ok":(s==="Disabled"||s==="Suspended"||s=
 function log(p,m){p.history.unshift({t:now(),m:m});save()}
 
 function blockers(p){
-  var b=[];
-  for(var i=0;i<STEPS.length-3;i++)if(!p.checklist[i])b.push(STEPS[i]);
-  if(p.ownership==="Unverified")b.push("Ownership status is Unverified");
-  if(p.panBank==="Unverified")b.push("PAN/bank ownership is Unverified");
-  if(p.commission==="Unverified")b.push("Commission recipient is Unverified");
-  if(p.permission!=="Verified")b.push("Partner permission not verified");
-  if(p.products.length===0)b.push("No product categories recorded");
-  if(p.urlStatus!=="Validated (host only)")b.push("Referral URL not validated");
-  if(p.cls==="personal"&&p.arnLinked)b.push("Personal account is linked to company ARN - not allowed");
-  if(p.cls==="personal"&&/corbitrage/i.test(p.commission)&&!/not corbitrage/i.test(p.commission))b.push("Personal referral income classified as corporate");
+  var b=[],i;
+  for(i=0;i<STEPS.length-3;i++)if(!p.checklist[i])b.push("Checklist step "+(i+1)+" not done: "+STEPS[i]);
+  if(p.ownership==="Unverified")b.push("Ownership: still Unverified");
+  if(p.panBank==="Unverified")b.push("PAN/bank ownership: still Unverified");
+  if(p.commission==="Unverified")b.push("Commission recipient: still Unverified");
+  if(p.permission!=="Verified")b.push("Permission: partner permission to refer not verified");
+  if(p.products.length===0)b.push("Products: no category recorded");
+  if(p.urlStatus!==URLOK)b.push("Referral URL: no HTTPS-format-checked host on file");
+  if(!p.urlDomainChecked)b.push("Referral URL: domain and destination not independently checked by a person");
+  var personalOwn=/^Personal/.test(p.ownership),companyComm=p.commission==="Corbitrage Private Limited";
+  if(p.cls==="personal"){
+    if(p.ownership!=="Unverified"&&!personalOwn)b.push("Mismatch: personal-account classification but ownership is not Personal");
+    if(p.panBank!=="Unverified"&&p.panBank!=="Personal")b.push("Mismatch: personal-account classification but PAN/bank class is not Personal");
+    if(companyComm&&!p.acctApproval)b.push("Commission recorded as Corbitrage revenue without documented legal/accounting approval");
+    if(p.arnLinked)b.push("Company ARN is associated with a personal account - not allowed");
+  }
+  if(p.cls==="third"&&personalOwn)b.push("Mismatch: third-party platform record shows personal ownership");
+  if(p.arnLinked&&p.cls!=="corporate")b.push("ARN association is only valid for corporate-business records");
+  if(personalOwn&&companyComm&&!p.acctApproval)b.push("Personal ownership with company commission needs documented legal/accounting approval");
+  if(p.ownership==="Company (Corbitrage Private Limited)"&&p.panBank==="Personal")b.push("Mismatch: company ownership but personal PAN/bank");
   return b;
 }
-
+function pct(p){return Math.round(done(p)/STEPS.length*100)}
+function lanes(p){
+  var own=(p.ownership!=="Unverified"&&p.panBank!=="Unverified"&&p.commission!=="Unverified")?"Classified":"Unverified";
+  var comp=blockers(p).length?"Blocked ("+blockers(p).length+")":"Checks complete";
+  var perm=p.permission==="Verified"?"Verified":p.permission;
+  var ref=p.referralEnabled?"ENABLED":(p.urlStatus===URLOK?(p.urlDomainChecked?"Domain checked, link disabled":"Format checked, link disabled"):"No URL, link disabled");
+  return[["Ownership",own],["Compliance",comp],["Permission",perm],["Referral link",ref]];
+}
 function render(){
+  state.forEach(function(p){if((p.status==="Approved"||p.referralEnabled)&&blockers(p).length){var was=p.status;p.status=(was==="Approved")?"Changes required":was;p.referralEnabled=false;log(p,"Auto-reverted: approval conditions no longer met ("+blockers(p).length+" open). Referral link disabled.")}});
   var tot=state.length,ap=state.filter(function(p){return p.status==="Approved"}).length,
       rv=state.filter(function(p){return p.status==="Compliance review"||p.status==="Pending verification"}).length,
       bad=state.filter(function(p){return p.status==="Disabled"||p.status==="Suspended"||p.status==="Changes required"}).length,
@@ -147,7 +166,7 @@ function render(){
   $("cards").innerHTML=state.map(function(p){
     return '<article class="card'+(p.id===sel?' sel':'')+'"><div class="row" style="justify-content:space-between"><h3 style="margin:0">'+esc(p.name)+'</h3><span class="pill '+sCls(p.status)+'">'+esc(p.status)+'</span></div>'
     +'<p class="muted" style="margin:6px 0">'+esc(CLASSES[p.cls])+'</p>'
-    +'<div class="row"><span class="pill info">Checklist '+done(p)+'/'+STEPS.length+'</span><span class="pill '+(p.referralEnabled?'bad':'ok')+'">Referral link: '+(p.referralEnabled?'ENABLED':'disabled')+'</span></div>'
+    +'<div class="row"><span class="pill info">'+pct(p)+'% · '+(STEPS.length-done(p))+' steps left</span></div><div class="row" style="margin-top:6px">'+lanes(p).map(function(l){return '<span class="pill '+(/Blocked|Unverified|Pending|Refused|ENABLED/.test(l[1])?'warn':'ok')+'">'+l[0]+': '+esc(l[1])+'</span>'}).join('')+'</div><p class="muted" style="margin:8px 0 0">'+(blockers(p).length?'Approval blocked: '+blockers(p).length+' open. See detail.':'No approval blockers.')+'</p>'
     +'<p style="margin:10px 0 0"><button class="sec" data-open="'+p.id+'">Open '+esc(p.name)+'</button></p></article>';
   }).join("");
   renderDetail();
@@ -163,7 +182,7 @@ function renderDetail(){
    +'<p class="muted">'+esc(p.note)+'</p>'
    +'<div class="two"><div>'
    +'<h3>Classification and ownership</h3>'
-   +'<label for="f_cls">Income / account classification</label><select id="f_cls">'+Object.keys(CLASSES).map(function(k){return '<option value="'+k+'"'+(k===p.cls?' selected':'')+'>'+esc(CLASSES[k])+'</option>'}).join("")+'</select>'
+   +'<label for="f_cls">Income / account classification</label>'+(p.locked?'<p class="muted" style="margin:0 0 4px">Locked: this is a personally owned account and cannot be reclassified here.</p>':'')+'<select id="f_cls"'+(p.locked?' disabled':'')+'>'+Object.keys(CLASSES).map(function(k){return '<option value="'+k+'"'+(k===p.cls?' selected':'')+'>'+esc(CLASSES[k])+'</option>'}).join("")+'</select>'
    +'<label for="f_own">Account ownership</label><select id="f_own">'+opt(["Unverified","Personal (account holder: owner)","Company (Corbitrage Private Limited)","Third party"],p.ownership)+'</select>'
    +'<label for="f_pb">PAN / bank ownership class (no numbers)</label><select id="f_pb">'+opt(["Unverified","Personal","Company"],p.panBank)+'</select>'
    +'<label for="f_com">Commission recipient</label><select id="f_com">'+opt(["Unverified","Personal (not Corbitrage)","Corbitrage Private Limited"],p.commission)+'</select>'
@@ -173,8 +192,9 @@ function renderDetail(){
    +'<label for="f_prod">Add category (e.g. credit card, loan, insurance, demat)</label><div class="row"><input id="f_prod" style="flex:1 1 180px;width:auto" maxlength="60"><button class="sec" id="addProd">Add</button></div>'
    +'<div class="row" style="margin-top:8px">'+(p.products.length?p.products.map(function(x,i){return '<span class="pill info">'+esc(x)+' <button class="sec" style="min-height:28px;padding:0 8px" data-rmprod="'+i+'" aria-label="Remove '+esc(x)+'">×</button></span>'}).join(""):'<span class="muted">None recorded</span>')+'</div>'
    +'<p class="muted">Insurance, loans, credit cards and similar products are outside an AMFI mutual fund distributor registration. They need their own legal and partner-permission review before any mention on the Corbitrage website.</p>'
-   +'<h3>Referral URL (host only)</h3>'
-   +'<label for="f_url">Paste referral URL to validate</label><div class="row"><input id="f_url" inputmode="url" autocomplete="off" style="flex:1 1 220px;width:auto" placeholder="https://…"><button class="sec" id="chkUrl">Validate</button></div>'
+   +'<h3>Referral URL (host only; format check is not verification)</h3>'
+   +'<label for="f_url">Paste referral URL to format-check</label><div class="row"><input id="f_url" inputmode="url" autocomplete="off" style="flex:1 1 220px;width:auto" placeholder="https://…"><button class="sec" id="chkUrl">Check HTTPS format</button></div>'
+   +'<p><label style="display:flex;gap:10px;align-items:center;font-weight:600"><input type="checkbox" id="f_udc" style="width:22px;min-height:22px"'+(p.urlDomainChecked?' checked':'')+(p.urlStatus===URLOK?'':' disabled')+'> A person has independently checked the domain belongs to the partner and the destination page is genuine</label></p>'
    +'<dl><dt>Host on file</dt><dd>'+esc(p.urlHost||"none")+'</dd><dt>Status</dt><dd>'+esc(p.urlStatus)+'</dd><dt>Full URL stored</dt><dd>No. The path and ID are discarded so personal referral IDs never enter the register.</dd></dl>'
    +'</div><div>'
    +'<h3>Compliance checklist ('+done(p)+'/'+STEPS.length+')</h3><ol class="chk">'
@@ -197,20 +217,22 @@ function renderDetail(){
 function bind(p){
   function on(id,fn){var e=$(id);if(e)e.addEventListener("click",fn)}
   function chg(id,fn){var e=$(id);if(e)e.addEventListener("change",fn)}
-  chg("f_cls",function(e){p.cls=e.target.value;log(p,"Classification set to: "+CLASSES[p.cls]);render()});
+  chg("f_cls",function(e){if(p.locked){render();return}p.cls=e.target.value;log(p,"Classification set to: "+CLASSES[p.cls]);render()});
   chg("f_own",function(e){p.ownership=e.target.value;log(p,"Ownership set to: "+p.ownership);render()});
   chg("f_pb",function(e){p.panBank=e.target.value;log(p,"PAN/bank ownership class set to: "+p.panBank);render()});
   chg("f_com",function(e){p.commission=e.target.value;log(p,"Commission recipient set to: "+p.commission);render()});
   chg("f_perm",function(e){p.permission=e.target.value;log(p,"Partner permission: "+p.permission);render()});
+  chg("f_appr",function(e){p.acctApproval=e.target.checked;log(p,"Legal/accounting approval for company income treatment: "+(p.acctApproval?"recorded":"removed"));render()});
+  chg("f_udc",function(e){p.urlDomainChecked=e.target.checked;log(p,"Manual domain/destination check "+(p.urlDomainChecked?"confirmed":"withdrawn"));render()});
   chg("f_arn",function(e){p.arnLinked=e.target.checked;log(p,"Company ARN association "+(p.arnLinked?"recorded":"removed"));render()});
   on("addProd",function(){var v=$("f_prod").value.trim().slice(0,60);if(!v)return;p.products.push(v);log(p,"Product category added: "+v);render()});
   document.querySelectorAll("[data-rmprod]").forEach(function(b){b.addEventListener("click",function(){var v=p.products.splice(+b.dataset.rmprod,1)[0];log(p,"Product category removed: "+v);render()})});
   on("chkUrl",function(){
     var raw=$("f_url").value.trim(),u;
-    try{u=new URL(raw)}catch(e){p.urlStatus="Invalid URL";p.urlHost="";log(p,"URL check failed: not a valid URL");render();return}
-    if(u.protocol!=="https:"){p.urlStatus="Rejected (not https)";p.urlHost="";log(p,"URL rejected: not https");render();return}
-    p.urlHost=u.hostname;p.urlStatus="Validated (host only)";$("f_url").value="";
-    log(p,"URL format validated; host recorded: "+u.hostname+". Path and IDs discarded. Content not checked: confirm the page manually.");render()});
+    try{u=new URL(raw)}catch(e){p.urlStatus="Invalid URL";p.urlDomainChecked=false;p.urlHost="";log(p,"URL check failed: not a valid URL");render();return}
+    if(u.protocol!=="https:"){p.urlStatus="Rejected (not https)";p.urlDomainChecked=false;p.urlHost="";log(p,"URL rejected: not https");render();return}
+    p.urlHost=u.hostname;p.urlStatus=URLOK;p.urlDomainChecked=false;$("f_url").value="";
+    log(p,"HTTPS format checked; host recorded: "+u.hostname+". Path and IDs discarded. Content not checked: confirm the page manually.");render()});
   document.querySelectorAll("[data-chk]").forEach(function(c){c.addEventListener("change",function(){var i=+c.dataset.chk;p.checklist[i]=c.checked;log(p,"Step "+(i+1)+(c.checked?" completed: ":" reopened: ")+STEPS[i]);render()})});
   document.querySelectorAll("[data-doc]").forEach(function(s){s.addEventListener("change",function(){p.docs[s.dataset.doc]=s.value;log(p,"Document status: "+s.dataset.doc+" → "+s.value);render()})});
   on("setSt",function(){
