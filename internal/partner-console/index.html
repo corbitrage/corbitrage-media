@@ -186,6 +186,7 @@ function renderDetail(){
    +'<label for="f_own">Account ownership</label><select id="f_own">'+opt(["Unverified","Personal (account holder: owner)","Company (Corbitrage Private Limited)","Third party"],p.ownership)+'</select>'
    +'<label for="f_pb">PAN / bank ownership class (no numbers)</label><select id="f_pb">'+opt(["Unverified","Personal","Company"],p.panBank)+'</select>'
    +'<label for="f_com">Commission recipient</label><select id="f_com">'+opt(["Unverified","Personal (not Corbitrage)","Corbitrage Private Limited"],p.commission)+'</select>'
+   +(p.cls==="personal"?'<p><label style="display:flex;gap:10px;align-items:center;font-weight:600"><input type="checkbox" id="f_appr" style="width:22px;min-height:22px"'+(p.acctApproval?' checked':'')+'> Documented legal/accounting approval exists for treating this personal account commission as Corbitrage revenue</label></p>':'')
    +'<label for="f_perm">Partner permission to refer</label><select id="f_perm">'+opt(["Pending","Verified","Refused"],p.permission)+'</select>'
    +'<p><label style="display:flex;gap:10px;align-items:center;font-weight:600"><input type="checkbox" id="f_arn" style="width:22px;min-height:22px"'+(p.arnLinked?' checked':'')+'> Company ARN is associated with this account</label></p>'
    +'<h3>Product categories</h3>'
