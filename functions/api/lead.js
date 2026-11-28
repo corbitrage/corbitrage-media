@@ -129,5 +129,6 @@ export async function onRequest({ request, env }) {
     } catch {
       return json({ error: "Could not deliver your request. Please use WhatsApp." }, 502, cors.headers);
     }
-    return json({ ok: true }, 200, cors.headers);
+    // Reached only after Make accepted the request, so the browser may say "received".
+    return json({ ok: true, dispatched: true }, 200, cors.headers);
 }
