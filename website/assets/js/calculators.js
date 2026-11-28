@@ -269,7 +269,7 @@
       xin.addEventListener("input", runX);
       var sample = document.getElementById("xirr-load-sample");
       if (sample) sample.addEventListener("click", function () {
-        xin.value = "2024-01-05, -5000\\n2024-02-05, -5000\\n2024-03-05, -5000\\n2024-04-05, -5000\\n2024-05-05, -5000\\n2024-06-05, -5000\\n2024-12-05, 31500";
+        xin.value = "2024-01-05, -5000\n2024-02-05, -5000\n2024-03-05, -5000\n2024-04-05, -5000\n2024-05-05, -5000\n2024-06-05, -5000\n2024-12-05, 31500";
         runX();
       });
       runX();
