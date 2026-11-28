@@ -1,8 +1,7 @@
 /**
  * Read-only AMFI NAV search proxy.
  * GET /api/nav?q=<scheme-name-or-scheme-code>
- * Supports AMFI's legacy 6-column and current 8-column NAVAll.txt rows.
- * No customer data, secrets, or outbound writes are involved.
+ * Supports AMFI legacy 6-column and current 8-column NAVAll.txt rows.
  */
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -20,7 +19,10 @@ function parseNavDate(value) {
   if (!match) return null;
   const months = { jan:"01",feb:"02",mar:"03",apr:"04",may:"05",jun:"06",jul:"07",aug:"08",sep:"09",oct:"10",nov:"11",dec:"12" };
   const month = months[match[2].toLowerCase()];
-  return month ? match[3] + "-" + month + "-" + match[1].padStart(2, "0") : null;
+  if (!month) return null;
+  const iso = match[3] + "-" + month + "-" + match[1].padStart(2, "0");
+  const parsed = new Date(iso + "T00:00:00.000Z");
+  return Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== iso ? null : iso;
 }
 
 export async function onRequest({ request }) {
@@ -45,8 +47,8 @@ export async function onRequest({ request }) {
   if (raw.length > 8_000_000) return json({ error: "The AMFI data response was unexpectedly large." }, 502);
   const needle = query.toLocaleLowerCase("en-IN");
   const matches = [];
-  let newestDate = null;
 
+  // Parse every matching row before sorting and applying the display cap.
   for (const line of raw.split(/\r?\n/)) {
     const fields = line.trim().split(";");
     if (!/^\d{4,7}$/.test(fields[0] || "")) continue;
@@ -63,7 +65,6 @@ export async function onRequest({ request }) {
     const normalizedDate = parseNavDate(date.trim());
     if (!normalizedDate) continue;
     if (!name.toLocaleLowerCase("en-IN").includes(needle) && code !== query) continue;
-    if (!newestDate || normalizedDate > newestDate) newestDate = normalizedDate;
     matches.push({
       schemeCode: code,
       schemeName: name.trim(),
@@ -73,15 +74,24 @@ export async function onRequest({ request }) {
       navDate: normalizedDate,
       source: "AMFI",
     });
-    if (matches.length >= 25) break;
   }
+
+  matches.sort((a, b) => b.navDate.localeCompare(a.navDate) || a.schemeName.localeCompare(b.schemeName, "en-IN"));
+  const today = new Date();
+  const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  const cutoff = todayUtc - 7 * 24 * 60 * 60 * 1000;
+  const capped = matches.slice(0, 25).map((row) => ({
+    ...row,
+    freshness: Date.parse(row.navDate + "T00:00:00.000Z") < cutoff ? "older" : "recent",
+  }));
 
   return json({
     source: "Association of Mutual Funds in India (AMFI)",
     sourceUrl: "https://www.amfiindia.com/net-asset-value/nav-download",
     fetchedAt: new Date().toISOString(),
-    results: matches,
-    count: matches.length,
-    message: matches.length ? undefined : "No matching schemes found. Try a shorter scheme name or scheme code.",
+    results: capped,
+    count: capped.length,
+    totalMatches: matches.length,
+    message: capped.length ? undefined : "No matching schemes found. Try a shorter scheme name or scheme code.",
   });
 }
