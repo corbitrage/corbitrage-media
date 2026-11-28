@@ -40,6 +40,56 @@
     return "";
   }
 
+
+  // XIRR on the visitor's own dated cash flows (investments negative, redemption/current value positive).
+  function parseFlows(text) {
+    var lines = String(text || "").split(/\r?\n/), flows = [], i, m, d, a;
+    for (i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+      m = line.match(/^(\d{4})-(\d{2})-(\d{2})\s*[,;\t ]\s*(-?[\d,]+(?:\.\d+)?)$/);
+      if (m) { d = Date.UTC(+m[1], +m[2] - 1, +m[3]); }
+      else {
+        m = line.match(/^(\d{2})[-\/](\d{2})[-\/](\d{4})\s*[,;\t ]\s*(-?[\d,]+(?:\.\d+)?)$/);
+        if (!m) return { error: "Line " + (i + 1) + " is not in the form YYYY-MM-DD, amount (or DD-MM-YYYY, amount)." };
+        d = Date.UTC(+m[3], +m[2] - 1, +m[1]);
+      }
+      var dt = new Date(d);
+      if (isNaN(d) || dt.getUTCFullYear() < 1990 || dt.getUTCFullYear() > 2100) return { error: "Line " + (i + 1) + " has an invalid date." };
+      a = parseFloat(m[4].replace(/,/g, ""));
+      if (!isFinite(a) || a === 0) return { error: "Line " + (i + 1) + " has an invalid amount." };
+      flows.push({ t: d, a: a });
+    }
+    return { flows: flows };
+  }
+
+  function calcXirr(text) {
+    var p = parseFlows(text);
+    if (p.error) return p;
+    var f = p.flows;
+    if (f.length < 2) return { error: "Enter at least two dated cash flows." };
+    if (f.length > 500) return { error: "Please enter at most 500 lines." };
+    var pos = 0, neg = 0, i;
+    for (i = 0; i < f.length; i++) { if (f[i].a > 0) pos += f[i].a; else neg += -f[i].a; }
+    if (!pos || !neg) return { error: "Use negative amounts for money you invested and a positive amount for the final value or any withdrawal." };
+    f.sort(function (x, y) { return x.t - y.t; });
+    var t0 = f[0].t, span = (f[f.length - 1].t - t0) / 86400000;
+    if (span < 30) return { error: "The dates must span at least 30 days; shorter periods give unreliable annualised figures." };
+    function npv(r) {
+      var s = 0;
+      for (var k = 0; k < f.length; k++) s += f[k].a / Math.pow(1 + r, (f[k].t - t0) / 31536000000);
+      return s;
+    }
+    var lo = -0.9999, hi = 100, flo = npv(lo), fhi = npv(hi);
+    if (flo * fhi > 0) return { error: "Could not compute a rate for these cash flows. Check the signs and dates." };
+    for (i = 0; i < 200; i++) {
+      var mid = (lo + hi) / 2, fm = npv(mid);
+      if (flo * fm <= 0) { hi = mid; } else { lo = mid; flo = fm; }
+    }
+    var rate = (lo + hi) / 2;
+    return { rate: rate * 100, invested: neg, received: pos, days: Math.round(span) };
+  }
+
   var DISCLAIMER = "Illustration only, based on the assumptions entered. Actual returns are not guaranteed and can be negative. Mutual fund investments are subject to market risks; read all scheme related documents carefully.";
 
   var API = {
@@ -68,6 +118,7 @@
       var value = lumpsumFutureValue(amount, rate, years);
       return { invested: amount, value: value, gain: value - amount };
     },
+    calcXirr: calcXirr,
     calcGoal: function (target, rate, years) {
       var err = check({ t: target, r: rate, y: years }, [
         { k: "t", min: 10000, max: 10000000000, msg: "Target must be between ₹10,000 and ₹1,000 crore." },
@@ -197,5 +248,24 @@
     bind("calc-sip", API.calcSip, "sip");
     bind("calc-lump", API.calcLump, "lump");
     bind("calc-goal", API.calcGoal, "goal");
+    var xf = document.getElementById("calc-xirr");
+    if (xf) {
+      var xin = document.getElementById("xirr-flows");
+      var runX = function () {
+        var out = xf.querySelector(".result"), r = API.calcXirr(xin.value);
+        out.replaceChildren(); out.classList.add("show");
+        if (r.error) { out.appendChild(node("p", "err", r.error)); return; }
+        var p = node("p", "", "Annualised return on the figures you entered (XIRR)");
+        p.appendChild(document.createElement("br"));
+        p.appendChild(node("strong", "", r.rate.toFixed(2) + "% a year"));
+        out.appendChild(p);
+        out.appendChild(node("p", "small", "Money in: " + inr(r.invested) + " · Money out / current value: " + inr(r.received) + " · Period: " + r.days + " days."));
+        out.appendChild(node("p", "small calc-disclaimer", "This is arithmetic on the numbers you typed. Corbitrage has not supplied or checked any scheme or index data. It is not a scheme return, forecast or recommendation. Past performance may or may not be sustained in future. Mutual fund investments are subject to market risks; read all scheme related documents carefully."));
+      };
+      xf.addEventListener("submit", function (e) { e.preventDefault(); runX(); });
+      xin.addEventListener("input", runX);
+      runX();
+    }
+
   });
 })(typeof window !== "undefined" ? window : globalThis);

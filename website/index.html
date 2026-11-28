@@ -22,7 +22,7 @@
 <header class="site"><div class="wrap">
 <a class="brand-lockup" href="/" aria-label="Corbitrage home"><img src="/assets/img/corbitrage-logo.png" alt="Corbitrage — Compounding + Arbitrage" decoding="async"></a>
 <nav class="main" aria-label="Main">
-<a href="/#services">Services</a><a href="/#calculators">Calculators</a><a href="/#nav-explorer">NAV</a><a href="/#videos">Videos</a><a href="/#partners">Investors &amp; distributors</a><a href="/#contact">Contact</a><a href="/disclosures.html">Disclosures</a>
+<a href="/#services">Services</a><a href="/#calculators">Calculators</a><a href="/#nav-explorer">NAV</a><a href="/#markets">Markets</a><a href="/#videos">Videos</a><a href="/#partners">Investors &amp; distributors</a><a href="/#contact">Contact</a><a href="/disclosures.html">Disclosures</a>
 </nav>
 <a class="btn" href="https://wa.me/918332904448">WhatsApp us</a>
 </div></header>
@@ -107,6 +107,7 @@
 <button role="tab" data-calc-tab="sip" aria-selected="true" type="button">SIP</button>
 <button role="tab" data-calc-tab="lump" aria-selected="false" type="button">Lumpsum</button>
 <button role="tab" data-calc-tab="goal" aria-selected="false" type="button">Goal</button>
+<button role="tab" data-calc-tab="xirr" aria-selected="false" type="button">Your own XIRR</button>
 </div>
 <form id="calc-sip" data-calc-panel="sip" class="card" novalidate>
 <h3>SIP calculator</h3>
@@ -135,7 +136,33 @@
 <div class="result" role="status" aria-live="polite"></div>
 </form>
 
+<form id="calc-xirr" data-calc-panel="xirr" class="card" novalidate>
+<h3>Your own XIRR (annualised return on your investments)</h3>
+<p class="small">Type your own dated cash flows, one per line: <code>YYYY-MM-DD, amount</code>. Use a negative amount for each investment and a positive amount for today&rsquo;s value or any withdrawal. The lines below are made-up example numbers &mdash; replace them with yours. Nothing you type is sent anywhere.</p>
+<label for="xirr-flows">Cash flows</label>
+<textarea id="xirr-flows" name="flows" rows="9" spellcheck="false" autocomplete="off" style="font-family:ui-monospace,Menlo,Consolas,monospace;width:100%">2024-01-05, -5000
+2024-02-05, -5000
+2024-03-05, -5000
+2024-04-05, -5000
+2024-05-05, -5000
+2024-06-05, -5000
+2024-12-05, 31500</textarea>
+<p><button class="btn" type="submit">Calculate</button></p>
+<div class="result" role="status" aria-live="polite"></div>
+</form>
+
 <p class="notice">Illustration only. Mutual fund investments are subject to market risks; read all scheme related documents carefully. Returns are not guaranteed and can be negative.</p>
+</div></section>
+
+<section id="markets"><div class="wrap">
+<h2>Market indices &mdash; official sources</h2>
+<p class="sub">Follow Indian and global market indices directly on the index providers&rsquo; own websites. Corbitrage does not reproduce index values or scheme performance on this site.</p>
+<div class="grid">
+<div class="card"><h3>India</h3><p><a href="https://www.nseindia.com/market-data/live-market-indices" target="_blank" rel="noopener noreferrer">NSE indices (Nifty family)</a></p><p><a href="https://www.bseindia.com/sensex/code/16/" target="_blank" rel="noopener noreferrer">BSE Sensex</a></p></div>
+<div class="card"><h3>United States</h3><p><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500/" target="_blank" rel="noopener noreferrer">S&amp;P 500 (S&amp;P Dow Jones Indices)</a></p><p><a href="https://www.nasdaq.com/market-activity/index/comp" target="_blank" rel="noopener noreferrer">Nasdaq Composite</a></p></div>
+<div class="card"><h3>Global and Asia</h3><p><a href="https://www.msci.com/our-solutions/indexes" target="_blank" rel="noopener noreferrer">MSCI indexes</a></p><p><a href="https://www.ftserussell.com/" target="_blank" rel="noopener noreferrer">FTSE Russell</a></p><p><a href="https://www.nikkei-indexes.com/" target="_blank" rel="noopener noreferrer">Nikkei indexes</a></p><p><a href="https://www.hsi.com.hk/eng" target="_blank" rel="noopener noreferrer">Hang Seng Indexes</a></p></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>How to read index figures</h3><p>An index level is not the return of any mutual fund. You cannot invest in an index directly, many headline indices exclude dividends, and a fund&rsquo;s result can differ because of costs, strategy and timing. Index history does not predict future results.</p><p>For scheme-level performance, read the fund house&rsquo;s official factsheet and scheme documents, or use AMFI&rsquo;s <a href="https://www.amfiindia.com/net-asset-value/nav-download" target="_blank" rel="noopener noreferrer">official NAV facility</a>. Links go to third-party websites that Corbitrage does not control.</p></div>
 </div></section>
 
 <section id="videos"><div class="wrap">
@@ -208,7 +235,7 @@
 </form>
 <p class="small">Registered Office: 2-126, Pandrapadu, Colony Anganwadi Road, Pandrapadu, Kakumanu Mandal, Guntur, Andhra Pradesh &ndash; 522124. Corporate Office: Vijayawada, Andhra Pradesh.</p>
 </div></section>
-<script src="/assets/js/calculators.js?v=20261126-timingnote" defer></script>
+<script src="/assets/js/calculators.js?v=20261128-xirr" defer></script>
 <script src="/assets/js/nav-explorer.js?v=20261124-nav1" defer></script>
 <script src="/assets/js/form.js?v=20261125-formstates" defer></script>
 <script src="/assets/js/motion.js?v=20261124-motion" defer></script>
