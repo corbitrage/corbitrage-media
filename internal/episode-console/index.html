@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Sippu &amp; Chinnu – Episode 1 production (internal)</title>
+<style>
+:root{--bg:#f8f6f0;--surface:#fffdf8;--surface-2:#f0eee5;--ink:#1f2f33;--muted:#566870;--line:#d9d5c6;--brand:#0f6b6e;--brand-d:#0a5154;--gold:#c8871a;--ok:#1d7a46;--ok-bg:#e3f2e8;--warn:#8a5a00;--warn-bg:#fbf1dc;--bad:#a32424;--bad-bg:#f8e3e3;--info-bg:#e6f1ee}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Telugu",sans-serif;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}h1{font-size:1.45rem;margin:0 0 4px}h2{font-size:1.2rem;margin:24px 0 8px}h3{font-size:1rem;margin:0 0 6px}
+.banner{background:var(--warn-bg);border:1px solid #e4c887;color:#5a3b00;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.92rem}
+.muted{color:var(--muted);font-size:.9rem}.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:600;border:1px solid var(--line);background:var(--surface-2);white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok);border-color:#9fcfb0}.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:#e4c887}.pill.info{background:var(--info-bg);color:var(--brand-d);border-color:#a8cfc8}.pill.bad{background:var(--bad-bg);color:var(--bad);border-color:#e1a5a5}
+button,select,input,textarea{font:inherit;color:inherit}button{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer}button.sec{background:var(--surface);color:var(--brand-d)}
+select,input[type=text]{min-height:44px;padding:8px 10px;border:1px solid #9aa7a8;border-radius:8px;background:#fff;width:100%}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+ol.stages{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ol.stages li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px;grid-template-columns:1fr}
+@media(min-width:760px){ol.stages li{grid-template-columns:180px 240px 1fr}}
+label{font-weight:600;font-size:.85rem;display:block;margin-bottom:3px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface-2);border-radius:8px;padding:10px;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;margin:6px 0;max-height:260px;overflow:auto}
+dl{display:grid;grid-template-columns:minmax(110px,32%) 1fr;gap:6px 10px;margin:8px 0;font-size:.92rem}dt{color:var(--muted)}dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.te{font-size:1.02rem}.chk{list-style:none;padding:0;margin:0;display:grid;gap:8px}.chk li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;gap:6px}
+.toast{position:sticky;bottom:8px;background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;margin-top:12px;display:none}.toast.on{display:block}
+</style>
+</head>
+<body><div class="wrap">
+<header>
+<h1>Sippu &amp; Chinnu — Episode 1: “Small Steps, Strong Habits” <span class="pill warn">Internal · local</span></h1>
+<p class="muted">YouTube Shorts · vertical 9:16 · target 36 seconds · Telugu-first with English subtitles · Corbitrage Private Limited (ARN-336411)</p>
+</header>
+<div class="banner" role="note"><strong>Internal planning page, not part of the public website.</strong> It lives outside the deployed folder, stores progress only in this browser, and cannot generate, upload, approve or publish anything. A stage can only be marked Completed with a written evidence note. No Google Flow, Canva, InShot or ElevenLabs account has been accessed from here.</div>
+
+<h2>1. Production dashboard</h2>
+<p class="muted" id="sum"></p>
+<ol class="stages" id="stages"></ol>
+
+<h2>2. Storyboard (4 scenes)</h2>
+<div class="grid" id="scenes"></div>
+
+<h2>3. Character reference — provisional</h2>
+<div class="banner">No approved Sippu or Chinnu reference sheet exists in the repository. The prompts below create <strong>provisional</strong> designs. They become official brand assets only after you approve them.</div>
+<div class="grid" id="chars"></div>
+
+<h2>4. Google Flow prompt pack</h2>
+<p class="muted">Paste into Google Flow yourself. Nothing here runs paid generation. Telugu and English text is added in the editor, not in Flow.</p>
+<div class="grid" id="pack"></div>
+
+<h2>5. Production asset checklist</h2>
+<ul class="chk" id="assets"></ul>
+
+<h2>6. Compliance guardrails for this episode</h2>
+<div class="card"><ul>
+<li>Corbitrage Private Limited is an <strong>AMFI-registered Mutual Fund Distributor (ARN-336411)</strong>. Never describe it as an investment adviser, wealth manager or IFA.</li>
+<li>Educational only: no returns, no “assured” or “guaranteed” wording, no scheme or AMC names or logos, no performance figures.</li>
+<li>The story should say that habits and time matter, not that any outcome will occur.</li>
+<li>Disclosure text on the last scene (plain text overlay):<pre id="disc">Corbitrage Private Limited, AMFI-registered Mutual Fund Distributor (ARN-336411).
+AI-generated educational illustration. Not an investment outcome or advice.
+Mutual fund investments are subject to market risks; read all scheme related documents carefully.</pre><button class="sec" data-copy="disc">Copy disclosure</button></li>
+<li>EUIN E639650: I suggest leaving it off the video. It identifies an individual and is normally shown on transaction documents. Decide with your CS/CA.</li>
+<li>Telugu lines below are my drafts. Have a native speaker review them before voice recording.</li>
+</ul></div>
+
+<h2>7. Waiting on you (external accounts)</h2>
+<div class="card"><ol id="ext"></ol></div>
+
+<div class="row" style="margin-top:16px"><button class="sec" id="rst">Reset progress</button></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+<script>
+(function(){"use strict";
+var KEY="corbitrage.episode1.v1";
+var ST=["Not Started","Prepared","Awaiting External Action","Awaiting Approval","Completed"];
+var STAGES=[
+["Concept","Prepared","Episode idea and four-scene structure written (this page)."],
+["Storyboard","Prepared","Scene descriptions, motion directions and draft lines prepared. Needs your review."],
+["Character Design","Awaiting External Action","Run the two character prompts in Google Flow, then approve a reference image."],
+["Scene Generation","Awaiting External Action","Needs approved characters first, then the four scene prompts in Google Flow."],
+["Voiceover","Awaiting External Action","Needs reviewed Telugu script and your approval before any paid voice generation."],
+["Editing","Awaiting External Action","Assemble in InShot or similar: 9:16, Telugu text overlay, English subtitles, disclosure."],
+["Compliance Review","Not Started","Check the final video against the guardrails above."],
+["Owner Approval","Not Started","Your sign-off on the finished video."],
+["Publishing","Not Started","Manual upload by you. Nothing is scheduled or posted from here."]];
+var STYLE="Hand-illustrated 2D cartoon look for a family-friendly Indian educational short. Warm teal (#0f6b6e), turmeric (#c8871a) and sand palette. Clean flat shapes, soft shadows, friendly expressions. Vertical 9:16 composition with the top 18% and bottom 22% of the frame left calm and uncluttered for subtitles. No text, numbers, logos or signage inside the image.";
+var NEG="Negative: no text or lettering of any kind, no Telugu or English words in the image, no brand logos, no bank or fund house marks, no stock tickers, charts with prices, money-growth graphics, piles of cash, rupee symbols flying upward, guarantee or profit imagery, no realistic photographs of real people, no inconsistent clothing or face between characters, no extra fingers or distorted hands.";
+var SC=[
+{n:1,t:"0–8 s",v:"Sippu, a friendly cartoon character, stands at a tidy wooden home desk beside a paper monthly wall calendar and a small ledger notebook and a plain glass savings jar. He points gently at the calendar. Warm morning light, uncluttered background.",m:"Slow push-in on Sippu, calendar page flutters slightly, 8 seconds.",te:"సిప్పు: ప్రతి నెలా చిన్న మొత్తం — అదే మంచి అలవాటు.",en:"Sippu: A small amount every month — that is the good habit."},
+{n:2,t:"8–17 s",v:"Chinnu, the smaller curious companion, sits beside an open notebook on which a simple smooth line curves gently upward like a learning path, with no numbers or labels. Chinnu tilts head with a curious expression. Sippu is partly visible at the edge of frame.",m:"Gentle side pan from Chinnu to the notebook; Chinnu's head tilts. 9 seconds.",te:"చిన్ను: అన్నా, చిన్న మొత్తంతో ఏం అవుతుంది?  సిప్పు: సమయం ఇస్తే అలవాటు బలపడుతుంది.",en:"Chinnu: Anna, what can a small amount do?  Sippu: Given time, the habit grows stronger."},
+{n:3,t:"17–28 s",v:"An Indian family of four (parents, grandparent and a child), illustrated in the same cartoon style, sit around a home table talking calmly about a long-term household goal. A model of a small house or a school bag sits on the table as a symbol of the goal. Warm lamp light, no money shown.",m:"Slow circular dolly around the table, 11 seconds, family nods and smiles.",te:"కుటుంబ లక్ష్యం పెద్దదైతే, క్రమశిక్షణ తోడు కావాలి.",en:"When the family goal is big, discipline helps."},
+{n:4,t:"28–36 s",v:"Sippu and Chinnu stand side by side, facing the viewer with friendly smiles, against a clean plain sand-coloured background with generous empty space in the lower third for the tagline and the disclosure overlay.",m:"Static framing with a very slight breathing motion, 8 seconds.",te:"అర్థం చేసుకోండి. క్రమశిక్షణతో పెట్టుబడి పెట్టండి. దారిలో ఉండండి.",en:"Understand. Invest with Discipline. Stay on Track."}];
+var CH=[
+{name:"Sippu",p:"Character reference sheet of Sippu: a warm, trustworthy adult cartoon male character in his thirties, medium build, short black hair, neat moustache, kind eyes, teal kurta over a cream shirt, simple wristwatch, no other accessories. Front, three-quarter and side views, neutral and smiling expressions, plain sand background. Keep proportions fixed: head about one-fifth of body height. "+STYLE},
+{name:"Chinnu",p:"Character reference sheet of Chinnu: a small, curious, youthful cartoon companion of Sippu, about two-thirds of Sippu's height, round face, big expressive eyes, short tousled hair, turmeric-yellow tee with a small teal collar, holds a tiny notebook. Front, three-quarter and side views, curious and happy expressions, plain sand background. Keep proportions fixed. "+STYLE}];
+var PACK=[{k:"master",title:"Master visual-style prompt",t:STYLE+" Same characters, same palette and same line weight in every scene."},{k:"neg",title:"Negative instructions (add to every prompt)",t:NEG}];
+SC.forEach(function(s){PACK.push({k:"s"+s.n,title:"Scene "+s.n+" image prompt",t:"Use the approved Sippu and Chinnu reference images. "+s.v+" "+STYLE+" "+NEG});PACK.push({k:"m"+s.n,title:"Scene "+s.n+" motion prompt",t:"Animate the approved scene image. "+s.m+" Keep character faces and clothing unchanged. No text appears. "+NEG})});
+var ASSETS=["Character reference images (Sippu, Chinnu)","Four scene images or clips","Storyboard reviewed","Telugu narration (native-speaker reviewed script, then recorded)","English subtitles","9:16 final edit","Compliance review","Final owner approval"];
+var EXT=["Google Flow: run the two character prompts, choose one reference image each, tell me which. Bring back the images for approval.","Google Flow: run the four scene prompts using the approved characters (this uses your Flow credits).","Have a native Telugu speaker review the draft lines in the storyboard.","Approve any paid voice generation (ElevenLabs or similar) before it is run.","Assemble in InShot or similar and send me the cut for the compliance check.","Decide on EUIN on the video (my advice: leave it off)."];
+function $(i){return document.getElementById(i)}function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function toast(m){var t=$("toast");t.textContent=m;t.className="toast on";clearTimeout(toast.h);toast.h=setTimeout(function(){t.className="toast"},3500)}
+var S;function fresh(){return{stages:STAGES.map(function(x){return{s:x[1],ev:""}}),assets:ASSETS.map(function(){return{s:"Not Started",ev:""}}),scenes:SC.map(function(){return{asset:"Not Started",appr:"Not Started"}})}}
+function load(){try{var r=JSON.parse(localStorage.getItem(KEY));if(r&&r.stages&&r.stages.length===STAGES.length&&r.assets&&r.assets.length===ASSETS.length&&r.scenes&&r.scenes.length===SC.length)return r}catch(e){}return fresh()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+S=load();
+function cls(s){return s==="Completed"?"ok":s==="Awaiting External Action"||s==="Awaiting Approval"?"warn":s==="Prepared"?"info":""}
+function setStatus(o,v,label){if(v==="Completed"&&!o.ev.trim()){toast("Add an evidence note first: say what proves '"+label+"' is complete.");return false}o.s=v;save();return true}
+function render(){
+ var d=S.stages.filter(function(x){return x.s==="Completed"}).length;
+ $("sum").textContent=d+" of "+STAGES.length+" stages completed with evidence. Concept and storyboard are prepared; every later stage needs an external account or your approval.";
+ $("stages").innerHTML=STAGES.map(function(x,i){var o=S.stages[i];return '<li><div><strong>'+(i+1)+'. '+esc(x[0])+'</strong><br><span class="pill '+cls(o.s)+'">'+esc(o.s)+'</span></div><div><label for="ss'+i+'">Status</label><select id="ss'+i+'" data-st="'+i+'">'+ST.map(function(z){return '<option'+(z===o.s?' selected':'')+'>'+z+'</option>'}).join("")+'</select></div><div><label for="ev'+i+'">Evidence note (required for Completed)</label><input type="text" id="ev'+i+'" data-ev="'+i+'" maxlength="200" value="'+esc(o.ev)+'" placeholder="e.g. link or description of the approved output"><p class="muted" style="margin:4px 0 0">'+esc(x[2])+'</p></div></li>'}).join("");
+ $("scenes").innerHTML=SC.map(function(s,i){var o=S.scenes[i];return '<article class="card"><h3>Scene '+s.n+' · '+s.t+'</h3><dl><dt>Visual</dt><dd>'+esc(s.v)+'</dd><dt>Motion</dt><dd>'+esc(s.m)+'</dd><dt>Telugu (draft)</dt><dd class="te" lang="te">'+esc(s.te)+'</dd><dt>English subtitle</dt><dd>'+esc(s.en)+'</dd></dl><div class="row"><div style="flex:1 1 140px"><label for="sa'+i+'">Asset status</label><select id="sa'+i+'" data-sa="'+i+'">'+["Not Started","Prepared","Awaiting External Action","Completed"].map(function(z){return '<option'+(z===o.asset?' selected':'')+'>'+z+'</option>'}).join("")+'</select></div><div style="flex:1 1 140px"><label for="sp'+i+'">Approval</label><select id="sp'+i+'" data-sp="'+i+'">'+["Not Started","Awaiting Approval","Completed"].map(function(z){return '<option'+(z===o.appr?' selected':'')+'>'+z+'</option>'}).join("")+'</select></div></div></article>'}).join("");
+ $("chars").innerHTML=CH.map(function(c,i){return '<article class="card"><h3>'+c.name+' <span class="pill warn">Provisional</span></h3><pre id="ch'+i+'">'+esc(c.p)+'</pre><button class="sec" data-copy="ch'+i+'">Copy '+c.name+' prompt</button></article>'}).join("");
+ $("pack").innerHTML=PACK.map(function(p){return '<article class="card"><h3>'+esc(p.title)+'</h3><pre id="pk'+p.k+'">'+esc(p.t)+'</pre><button class="sec" data-copy="pk'+p.k+'">Copy</button></article>'}).join("");
+ $("assets").innerHTML=ASSETS.map(function(a,i){var o=S.assets[i];return '<li><div class="row" style="justify-content:space-between"><strong>'+esc(a)+'</strong><span class="pill '+cls(o.s)+'">'+esc(o.s)+'</span></div><div class="row"><select id="as'+i+'" data-as="'+i+'" aria-label="Status of '+esc(a)+'" style="flex:1 1 180px;width:auto">'+ST.map(function(z){return '<option'+(z===o.s?' selected':'')+'>'+z+'</option>'}).join("")+'</select><input type="text" data-ae="'+i+'" aria-label="Evidence for '+esc(a)+'" maxlength="200" value="'+esc(o.ev)+'" placeholder="Evidence note (required for Completed)" style="flex:2 1 220px;width:auto"></div></li>'}).join("");
+ $("ext").innerHTML=EXT.map(function(e){return '<li>'+esc(e)+'</li>'}).join("");
+}
+document.addEventListener("change",function(e){var t=e.target,i;
+ if(t.dataset.st!==undefined){i=+t.dataset.st;if(!setStatus(S.stages[i],t.value,STAGES[i][0]))t.value=S.stages[i].s;render()}
+ else if(t.dataset.as!==undefined){i=+t.dataset.as;if(!setStatus(S.assets[i],t.value,ASSETS[i]))t.value=S.assets[i].s;render()}
+ else if(t.dataset.sa!==undefined){S.scenes[+t.dataset.sa].asset=t.value;save();render()}
+ else if(t.dataset.sp!==undefined){S.scenes[+t.dataset.sp].appr=t.value;save();render()}
+ else if(t.dataset.ev!==undefined){S.stages[+t.dataset.ev].ev=t.value;save()}
+ else if(t.dataset.ae!==undefined){S.assets[+t.dataset.ae].ev=t.value;save()}});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-copy]");if(!b)return;var el=$(b.dataset.copy);var txt=el.textContent;
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast("Copied.")},function(){sel(el)})}else sel(el);
+ function sel(n){var r=document.createRange();r.selectNodeContents(n);var s=getSelection();s.removeAllRanges();s.addRange(r);toast("Selected. Press copy.")}});
+$("rst").addEventListener("click",function(){if(confirm("Reset all progress on this page?")){S=fresh();save();render();toast("Reset.")}});
+render();})();
+</script></body></html>
