@@ -55,7 +55,8 @@
         d = Date.UTC(+m[3], +m[2] - 1, +m[1]);
       }
       var dt = new Date(d);
-      if (isNaN(d) || dt.getUTCFullYear() < 1990 || dt.getUTCFullYear() > 2100) return { error: "Line " + (i + 1) + " has an invalid date." };
+      var parts = m[1].length === 4 ? [+m[1], +m[2], +m[3]] : [+m[3], +m[2], +m[1]];
+      if (isNaN(d) || dt.getUTCFullYear() !== parts[0] || dt.getUTCMonth() + 1 !== parts[1] || dt.getUTCDate() !== parts[2] || dt.getUTCFullYear() < 1990 || dt.getUTCFullYear() > 2100) return { error: "Line " + (i + 1) + " has an invalid date." };
       a = parseFloat(m[4].replace(/,/g, ""));
       if (!isFinite(a) || a === 0) return { error: "Line " + (i + 1) + " has an invalid amount." };
       flows.push({ t: d, a: a });
@@ -252,7 +253,9 @@
     if (xf) {
       var xin = document.getElementById("xirr-flows");
       var runX = function () {
-        var out = xf.querySelector(".result"), r = API.calcXirr(xin.value);
+        var out = xf.querySelector(".result");
+        if (!xin.value.trim()) { out.replaceChildren(); out.classList.remove("show"); return; }
+        var r = API.calcXirr(xin.value);
         out.replaceChildren(); out.classList.add("show");
         if (r.error) { out.appendChild(node("p", "err", r.error)); return; }
         var p = node("p", "", "Annualised return on the figures you entered (XIRR)");
@@ -264,6 +267,11 @@
       };
       xf.addEventListener("submit", function (e) { e.preventDefault(); runX(); });
       xin.addEventListener("input", runX);
+      var sample = document.getElementById("xirr-load-sample");
+      if (sample) sample.addEventListener("click", function () {
+        xin.value = "2024-01-05, -5000\\n2024-02-05, -5000\\n2024-03-05, -5000\\n2024-04-05, -5000\\n2024-05-05, -5000\\n2024-06-05, -5000\\n2024-12-05, 31500";
+        runX();
+      });
       runX();
     }
 
