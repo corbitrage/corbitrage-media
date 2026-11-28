@@ -131,8 +131,10 @@
 <div class="result" role="status" aria-live="polite"></div>
 </form>
 
-<form id="calc-xirr" data-calc-panel="xirr" class="card" novalidate>
-<h3>Your own XIRR (annualised return on your investments)</h3>
+<form id="calc-xirr" data-calc-panel="xirr" class="card xirr-feature" novalidate>
+<div class="xirr-heading"><span class="xirr-kicker">ADVANCED CALCULATOR</span><span class="xirr-pill">XIRR</span></div>
+<h3>Your own XIRR — annualised return on your investments</h3>
+<p class="xirr-intro">See the annualised return calculated from your own dated cash flows.</p>
 <p class="small">Type your own dated cash flows, one per line: <code>YYYY-MM-DD, amount</code>. Use a negative amount for each investment and a positive amount for today&rsquo;s value or any withdrawal. Enter your own dated cash flows. Nothing you type is sent anywhere.</p>
 <label for="xirr-flows">Cash flows</label>
 <textarea id="xirr-flows" name="flows" rows="9" spellcheck="false" autocomplete="off" placeholder="2024-01-05, -5000&#10;2024-02-05, -5000&#10;2024-12-05, 11000" style="font-family:ui-monospace,Menlo,Consolas,monospace;width:100%"></textarea>
