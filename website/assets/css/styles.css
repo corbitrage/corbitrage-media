@@ -392,3 +392,38 @@ footer.site{background:#eaf0f7;border-top:2px solid #9db6d0;color:#40546c}
 footer.site a{color:#145b99}
 @media(max-width:760px){#services .grid{grid-template-columns:1fr}.home-accordion>summary{padding:16px;gap:10px;align-items:flex-start}.home-accordion>summary small{max-width:44%;font-size:.72rem}.accordion-content{padding:0 15px 14px}.accordion-content section{padding:18px 0}.quick-contact-inner{display:block;padding:18px}.quick-contact .cta-row{margin-top:14px}}
 @media(prefers-reduced-motion:reduce){.home-accordion,.home-accordion>summary{scroll-behavior:auto}}
+
+
+/* Radiant metallic finish and clear XIRR calculator emphasis — staging */
+:root{--metal-blue:#8fb9df;--metal-white:#f8fcff;--glow-blue:rgba(83,164,232,.24)}
+body{background:radial-gradient(ellipse at 12% 2%,rgba(157,199,232,.25),transparent 34%),radial-gradient(ellipse at 88% 10%,rgba(206,226,244,.55),transparent 30%),linear-gradient(180deg,#fafdff 0%,#eff5fb 52%,#f5f8fc 100%)}
+header.site{box-shadow:0 5px 26px rgba(29,76,120,.09),inset 0 -1px 0 rgba(255,255,255,.9)}
+.hero-visual,.card,.home-accordion,.quick-contact-inner{position:relative}
+.hero-visual{box-shadow:0 18px 44px rgba(26,62,99,.09),inset 0 1px 0 rgba(255,255,255,.95)}
+.card{box-shadow:0 8px 24px rgba(26,52,82,.055),inset 0 1px 0 rgba(255,255,255,.92)}
+.btn{background:linear-gradient(115deg,#3c8dcc 0%,#1769aa 48%,#0e4c82 100%);border:1px solid rgba(255,255,255,.55);box-shadow:0 6px 18px rgba(24,99,157,.2),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn:hover{filter:brightness(1.07);box-shadow:0 8px 22px rgba(24,99,157,.28),0 0 0 3px rgba(90,165,222,.12)}
+.tag,.journey-number{box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.home-accordion{box-shadow:0 6px 22px rgba(26,52,82,.045),inset 0 1px 0 #fff}
+#calculators #calc-xirr.xirr-feature{
+ max-width:900px;margin:28px auto;padding:clamp(20px,3vw,30px);
+ border:1px solid #75a9d3;border-top:4px solid #3c8dcc;border-radius:20px;
+ background:radial-gradient(ellipse at 100% 0%,rgba(177,215,245,.35),transparent 42%),linear-gradient(145deg,#fff 0%,#f4f9ff 58%,#eaf4fd 100%);
+ box-shadow:0 14px 36px rgba(23,91,148,.14),0 0 0 1px rgba(255,255,255,.85) inset,0 0 26px rgba(83,164,232,.13);
+}
+.xirr-heading{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.xirr-kicker{font-size:.7rem;font-weight:800;letter-spacing:.13em;color:#3c6f9e}
+.xirr-pill{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;background:linear-gradient(110deg,#dceeff,#fff);border:1px solid #9fc5e7;color:#145b99;font-size:.78rem;font-weight:850;letter-spacing:.08em;box-shadow:0 2px 8px rgba(34,105,163,.1)}
+#calculators #calc-xirr h3{font-size:1.35rem;color:#123e66;margin-bottom:5px}
+#calculators #calc-xirr .xirr-intro{color:#376487;font-weight:600;margin:0 0 12px}
+#calculators #calc-xirr textarea{border:1px solid #9bbbd7;border-radius:12px;background:rgba(255,255,255,.92);box-shadow:inset 0 1px 3px rgba(26,65,101,.07);padding:13px;min-height:180px}
+#calculators #calc-xirr textarea:focus{outline:3px solid rgba(65,146,207,.22);border-color:#287fc0}
+#calculators #calc-xirr #xirr-load-sample{background:linear-gradient(110deg,#fff,#e9f4fd);border-color:#9bbbd7}
+#calculators #calc-xirr button[type="submit"]{min-width:170px;font-weight:800}
+#calculators #calc-xirr .result.show{display:block;margin-top:18px;padding:18px 20px;border:1px solid #5e9ccc;border-left:5px solid #1769aa;border-radius:14px;background:linear-gradient(120deg,#eaf5ff,#fff);box-shadow:0 8px 22px rgba(25,99,157,.13),inset 0 1px 0 #fff}
+#calculators #calc-xirr .result.show>p:first-child{color:#204d73;font-weight:650;font-size:1rem}
+#calculators #calc-xirr .result.show>p:first-child strong{display:inline-block;margin-top:5px;font-size:clamp(1.8rem,5vw,2.5rem);line-height:1.2;color:#075b9c;text-shadow:0 1px 0 #fff}
+#calculators #calc-xirr .result.show .small{color:#4d6278}
+#calculators #calc-xirr .result.show .err{color:#a21e2c;font-weight:700}
+@media(max-width:760px){#calculators #calc-xirr.xirr-feature{margin:20px 0;padding:18px;border-radius:16px}#calculators #calc-xirr textarea{min-height:155px}}
+@media(prefers-reduced-motion:reduce){.btn:hover{filter:none}}
